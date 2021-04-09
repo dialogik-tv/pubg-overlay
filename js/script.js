@@ -4,7 +4,7 @@
     const urlParams = new URLSearchParams(queryString);
     let key = '';
     let region = 'pc-eu';
-    const player = { };
+    const player = {};
 
     // Parse PUBG username
     if(urlParams.has('username')) {
@@ -28,12 +28,14 @@
             season = seasonsFetcher[lastIndex].id;
 
             // Fetch current season data
-            const singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
-            // console.log({singleSeasonFetcher});
+            let singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
+            setInterval(async function() {
+                singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
+            }, 3 * 60 * 1000); // 3 minutes
 
             // Short reference
             const squadFPP = singleSeasonFetcher.attributes.gameModeStats.squadFPP;
-            console.log(squadFPP);
+            // console.log(squadFPP);
 
             // Pass content to handler
             setBoxContent({
@@ -71,7 +73,7 @@ function setBoxContent(content) {
     i = setRowContent(keys[i], values[i], values.length, i);
     setInterval(function() {
         i = setRowContent(keys[i], values[i], values.length, i);
-    }, 5000);
+    }, 15 * 1000); // 15 seconds
 }
 
 function setRowContent(key, value, length, index) {
@@ -80,7 +82,14 @@ function setRowContent(key, value, length, index) {
         <span class="item-key">${key}</span>
         <span class="item-value">${value}</span>
     </div>`;
-    box.innerHTML = string;
+
+    box.classList.add('animate__backOutRight');
+    setTimeout(function() {
+        box.innerHTML = string;
+        box.classList.remove('animate__backOutRight');
+        box.classList.add('animate__backInRight');
+    }, 420);
+
     index++;
     if(index >= length) { index = 0 }
     return index;
