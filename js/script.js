@@ -38,29 +38,29 @@
 
             // Pass content to handler
             setBoxContent({
-                "Toetungen": squadFPP.kills,
-                "Kopfschusstoetungen": squadFPP.headshotKills,
+                "Kills": squadFPP.kills,
+                "Headshots": squadFPP.headshotKills,
                 "🐔": squadFPP.wins,
                 "🔝🔟": squadFPP.top10s,
-                "Längste Toetung" : parseInteger(squadFPP.longestKill) + "m",
+                "Longest kill" : parseInteger(squadFPP.longestKill) + "m",
                 "💊": squadFPP.boosts,
-                "Assistierungen": squadFPP.assists,
-                "Schaden": parseInteger(squadFPP.damageDealt),
-                "Taegliche Kills": squadFPP.dailyKills,
+                "Assists": squadFPP.assists,
+                "Damage dealt": parseInteger(squadFPP.damageDealt),
+                "Daily kills": squadFPP.dailyKills,
                 "💉": squadFPP.revives,
                 "☠️🚗": squadFPP.roadKills,
-                "Meisten Rundenkills": squadFPP.roundMostKills,
-                "Selbstmorde": squadFPP.suicides,
+                "Most round kills": squadFPP.roundMostKills,
+                "Suicides": squadFPP.suicides,
                 "🚗💥": squadFPP.vehicleDestroys,
-                "Waffen": squadFPP.weaponsAcquired,
+                "Weapons acquired": squadFPP.weaponsAcquired,
                 "🚗 km": parseInteger(squadFPP.rideDistance),
                 "👣 km": parseInteger(squadFPP.walkDistance)
             });
         } else {
-            alert("PUBG API-Key muss gesetzt werden!");
+            alert("PUBG API-Key must be given!");
         }
     } else {
-        alert("PUBG Username muss gesetzt werden!");
+        alert("PUBG Username must be given!");
     }
 })();
 
