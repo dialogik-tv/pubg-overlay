@@ -37,7 +37,7 @@
             const squadFPP = singleSeasonFetcher.attributes.gameModeStats.squadFPP;
 
             // Pass content to handler
-            setBoxContent({
+            const displayData = {
                 "Kills": squadFPP.kills,
                 "Headshots": squadFPP.headshotKills,
                 "🐔": squadFPP.wins,
@@ -55,7 +55,8 @@
                 "Weapons acquired": squadFPP.weaponsAcquired,
                 "🚗 km": parseInteger(squadFPP.rideDistance),
                 "👣 km": parseInteger(squadFPP.walkDistance)
-            });
+            };
+            setBoxContent(displayData);
         } else {
             alert("PUBG API-Key must be given!");
         }
@@ -98,5 +99,5 @@ function parseInteger(number) {
     if(typeof number == "undefined") {
         return 0;
     }
-    return parseInt(number.toLocaleString("de-DE"));
+    return "" + parseInt(number).toLocaleString("de-DE");
 }
