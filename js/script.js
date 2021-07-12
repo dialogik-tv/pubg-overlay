@@ -73,7 +73,7 @@ function setBoxContent(content) {
     i = setRowContent(keys[i], values[i], values.length, i);
     setInterval(function() {
         i = setRowContent(keys[i], values[i], values.length, i);
-    }, 15 * 1000); // 15 seconds
+    }, 10 * 1000); // 10 seconds
 }
 
 function setRowContent(key, value, length, index) {
