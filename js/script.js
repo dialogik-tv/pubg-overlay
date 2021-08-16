@@ -23,16 +23,16 @@
             player.id = playerFetcher.id;
 
             // First, get current season name
-            const season = await getLatestSeason(client);
+            const seasonId = await getCurrentSeasonId(client);
 
             // Fetch current season data
-            let singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
+            let singleSeasonFetcher = await getCurrentRankedSeasonData(player.id, seasonId, key);
             setInterval(async function() {
-                singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
+                singleSeasonFetcher = await getCurrentRankedSeasonData(player.id, seasonId, key);
             }, 60 * 1000); // 60s/1min
 
             // Short reference
-            const squadFPP = singleSeasonFetcher.attributes.gameModeStats.squadFPP;
+            const squadFPP = singleSeasonFetcher.attributes.rankedGameModeStats['squad-fpp'];
 
             // Pass content to handler
             const displayData = {
@@ -100,11 +100,25 @@ function parseInteger(number) {
     return "" + parseInt(number).toLocaleString("de-DE");
 }
 
-async function getLatestSeason(client) {
+async function getCurrentSeasonId(client) {
     const seasons = await client.getSeasons();
+    console.log(seasons);
     for(index in seasons) {
         if(seasons[index].attributes.isCurrentSeason && seasons[index].id.includes(".pc-")) {
             return seasons[index].id;
         }
     }
+}
+
+async function getCurrentRankedSeasonData(playerId, seasonId, key) {
+    const url = `https://api.pubg.com/shards/steam/players/${playerId}/seasons/${seasonId}/ranked`;
+    const season = await fetch(url, {
+        headers: {
+            Accept: 'application/vnd.api+json',
+            Authorization: 'Bearer ' + key
+        }
+    });
+    const data = await season.json();
+    console.log(data.data);
+    return data.data;
 }
