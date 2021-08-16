@@ -23,9 +23,7 @@
             player.id = playerFetcher.id;
 
             // First, get current season name
-            const seasonsFetcher = await client.getSeasons();
-            const lastIndex = seasonsFetcher.length-1;
-            season = seasonsFetcher[lastIndex].id;
+            const season = await getLatestSeason(client);
 
             // Fetch current season data
             let singleSeasonFetcher = await client.getPlayerSeason(player.id, season);
@@ -100,4 +98,13 @@ function parseInteger(number) {
         return 0;
     }
     return "" + parseInt(number).toLocaleString("de-DE");
+}
+
+async function getLatestSeason(client) {
+    const seasons = await client.getSeasons();
+    for(index in seasons) {
+        if(seasons[index].attributes.isCurrentSeason && seasons[index].id.includes(".pc-")) {
+            return seasons[index].id;
+        }
+    }
 }
