@@ -36,23 +36,21 @@
 
             // Pass content to handler
             const displayData = {
-                "Kills": squadFPP.kills,
-                "Headshots": squadFPP.headshotKills,
-                "🐔": squadFPP.wins,
-                "🔝🔟": squadFPP.top10s,
-                "Longest kill" : parseInteger(squadFPP.longestKill) + "m",
-                "💊": squadFPP.boosts,
                 "Assists": squadFPP.assists,
-                "Damage dealt": parseInteger(squadFPP.damageDealt),
-                "Daily kills": squadFPP.dailyKills,
-                "💉": squadFPP.revives,
-                "☠️🚗": squadFPP.roadKills,
-                "Most round kills": squadFPP.roundMostKills,
-                "Suicides": squadFPP.suicides,
-                "🚗💥": squadFPP.vehicleDestroys,
-                "Weapons acquired": squadFPP.weaponsAcquired,
-                "🚗 km": parseInteger(squadFPP.rideDistance),
-                "👣 km": parseInteger(squadFPP.walkDistance)
+                "Average rank": (Math.round(squadFPP.avgRank * 100) / 100).toFixed(1),
+                "Best rank point": squadFPP.bestRankPoint,
+                "Best tier": `${squadFPP.bestTier.tier} ${squadFPP.bestTier.subTier}`,
+                "Current rank point": squadFPP.currentRankPoint,
+                "Current tier": `${squadFPP.currentTier.tier} ${squadFPP.currentTier.subTier}`,
+                "Damage dealt": (Math.round(squadFPP.damageDealt * 100) / 100).toFixed(0),
+                "DBNOs": squadFPP.dBNOs,
+                "Deaths": squadFPP.deaths,
+                "Kills": squadFPP.kills,
+                "KDA": (Math.round(squadFPP.kda * 100) / 100).toFixed(1),
+                "Rounds played": squadFPP.roundsPlayed,
+                "🔝🔟 Ratio": (Math.round(squadFPP.top10Ratio * 100)).toFixed(0) + " of 100",
+                "Win ratio": (Math.round(squadFPP.winRatio * 100)).toFixed(0) + " of 100",
+                "🐔": squadFPP.wins,
             };
             setBoxContent(displayData);
         } else {
