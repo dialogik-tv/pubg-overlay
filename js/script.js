@@ -79,11 +79,11 @@ function setRowContent(key, value, length, index) {
         <span class="item-value">${value}</span>
     </div>`;
 
-    box.classList.add("animate__backOutRight");
+    box.classList.add("animate__backOutDown");
     setTimeout(function() {
         box.innerHTML = string;
-        box.classList.remove("animate__backOutRight");
-        box.classList.add("animate__backInRight");
+        box.classList.remove("animate__backOutDown");
+        box.classList.add("animate__backInUp");
     }, 420);
 
     index++;
