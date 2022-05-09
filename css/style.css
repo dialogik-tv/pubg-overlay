@@ -14,7 +14,7 @@ html {
 
 body {
     /* background: #000; */
-    color: #eee;
+    color: rgb(255, 119, 0);
     font-family: 'Headliner', Helvetica, Arial, sans-serif;
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 .item-key {
-    color: rgb(9, 207, 243);
+    color: rgb(196, 0, 196);
     margin-right: 10px;
     font-size: .6rem;
     position: relative;
