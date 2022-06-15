@@ -20,10 +20,12 @@
 
             // Get Player ID
             const playerFetcher = await client.getPlayer({name: player.username});
+            console.log({playerFetcher});
             player.id = playerFetcher.id;
 
             // First, get current season name
             const seasonId = await getCurrentSeasonId(client);
+            console.log({seasonId});
 
             // Fetch current season data
             let singleSeasonFetcher = await getCurrentRankedSeasonData(player.id, seasonId, key);
@@ -31,9 +33,14 @@
                 singleSeasonFetcher = await getCurrentRankedSeasonData(player.id, seasonId, key);
             }, 60 * 1000); // 60s/1min
 
+            console.log({singleSeasonFetcher});
+
             // Short reference
             const squadFPP = singleSeasonFetcher.attributes.rankedGameModeStats['squad-fpp'];
-
+            
+            // When fetching non ranked games
+            // const squadFPP = singleSeasonFetcher.attributes.gameModeStats['squad-fpp'];
+            
             // Pass content to handler
             const displayData = {
                 "Assists": squadFPP.assists,
@@ -100,7 +107,6 @@ function parseInteger(number) {
 
 async function getCurrentSeasonId(client) {
     const seasons = await client.getSeasons();
-    console.log(seasons);
     for(index in seasons) {
         if(seasons[index].attributes.isCurrentSeason && seasons[index].id.includes(".pc-")) {
             return seasons[index].id;
@@ -110,6 +116,10 @@ async function getCurrentSeasonId(client) {
 
 async function getCurrentRankedSeasonData(playerId, seasonId, key) {
     const url = `https://api.pubg.com/shards/steam/players/${playerId}/seasons/${seasonId}/ranked`;
+
+    // Fetch non ranked games
+    // const url = `https://api.pubg.com/shards/steam/players/${playerId}/seasons/${seasonId}`;
+    console.log({url});
     const season = await fetch(url, {
         headers: {
             Accept: 'application/vnd.api+json',
@@ -117,6 +127,6 @@ async function getCurrentRankedSeasonData(playerId, seasonId, key) {
         }
     });
     const data = await season.json();
-    console.log(data.data);
+    console.log({data: data.data});
     return data.data;
 }
